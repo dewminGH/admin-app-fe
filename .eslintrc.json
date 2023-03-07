@@ -49,37 +49,6 @@
         "devDependencies": ["**/*setupTests.ts", "**/*.d.ts", "**/*.stories.tsx", "**/*.test.ts", "**/.projenrc.ts"]
       }
     ],
-    "import/no-unresolved": ["error"],
-    "import/order": [
-      1,
-      {
-        "groups": ["external", "builtin", "internal", "sibling", "parent", "index"],
-        "pathGroups": [
-          {
-            "pattern": "components",
-            "group": "internal"
-          },
-          {
-            "pattern": "common",
-            "group": "internal"
-          },
-          {
-            "pattern": "routes/**",
-            "group": "internal"
-          },
-          {
-            "pattern": "assets/**",
-            "group": "internal",
-            "position": "after"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["internal"],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ],
     "no-duplicate-imports": ["error"],
     "@typescript-eslint/no-shadow": ["error"],
     "key-spacing": ["error"],
