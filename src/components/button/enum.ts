@@ -1,4 +1,5 @@
+/* eslint-disable */
 export enum ButtonTypes {
-  // eslint-disable-next-line
   LoginButton = "LoginButton",
+  ModalButton = "ModalButton",
 }

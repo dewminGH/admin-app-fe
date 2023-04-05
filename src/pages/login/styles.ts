@@ -44,7 +44,7 @@ export const LoginTitle = styled.div`
   justify-content: center;
   width: 100%;
   font-size: 32px;
-  padding-bottom: 70px;
+  padding-bottom: 40px;
 `;
 
 export const LoginMetaText = styled.div<IMetaTextStyleProps>`
@@ -66,4 +66,12 @@ export const LoginMetaText = styled.div<IMetaTextStyleProps>`
 
 export const LoginMetaTextWrapper = styled.div`
   display: flex;
+`;
+
+export const ModalButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 `;

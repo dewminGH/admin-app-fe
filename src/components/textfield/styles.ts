@@ -5,13 +5,25 @@ import { TextFieldTypes } from "./enum";
 
 export const CustomTextField = styled(TextField)<ITextFieldStyleProps>`
   ${({ type }) => {
-    if ((type = TextFieldTypes.LoginTextField))
-      return {
-        width: "540px",
-        height: "65px",
-        paddingBottom: "15px !important",
-      };
-
-    return null;
+    let styles;
+    switch (type) {
+      case TextFieldTypes.LoginTextField:
+        styles = {
+          width: "540px !important",
+          height: "65px !important",
+          paddingBottom: "15px !important",
+        };
+        break;
+      case TextFieldTypes.ModalTextField:
+        styles = {
+          width: "395px",
+          height: "65px",
+          paddingBottom: "15px !important",
+        };
+        break;
+      default:
+        styles = {};
+    }
+    return styles;
   }}
 `;
