@@ -1,4 +1,5 @@
+/* eslint-disable */
 export enum TextFieldTypes {
-  // eslint-disable-next-line
   LoginTextField = "LoginTextFields",
+  ModalTextField = "ModalTextField",
 }
