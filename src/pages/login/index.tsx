@@ -7,10 +7,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { ButtonTypes } from "../../components/button/enum";
 import { TextFieldTypes } from "../../components/textfield/enum";
 import { useNavigate } from "react-router-dom";
-import { userRegister } from "../../services";
 import StyledModal from "../../components/modal";
-import { initAuth, userConfirmRegister } from "../../services/auth";
-import { getUserTokens } from "../../services/cache";
+import { initAuth, userConfirmRegister, getUserTokens, userRegister } from "../../services";
 import jwtDecode from "jwt-decode";
 import { IIDTokenDecode } from "./types";
 

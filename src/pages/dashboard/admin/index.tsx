@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import * as Styled from "./styles";
+import * as Styled from "../common/styles";
 import DashboardFrame from "../../common";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
+import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
 import TableFrame from "../../../components/table";
 import React, { useEffect, useState } from "react";
-import { INavButton } from "./types";
-import { getShop } from "../../../services/shop";
+import { INavButton } from "../common/type";
+import { getShop } from "../../../services";
 import { tableClNames } from "./string";
 import { setObjectToArray } from "../../../util";
 
@@ -16,8 +16,8 @@ const NavItems: INavButton[] = [
     element: <HomeOutlinedIcon />,
   },
   {
-    name: "Inventory",
-    element: <WidgetsOutlinedIcon />,
+    name: "Users",
+    element: <PersonSearchOutlinedIcon />,
   },
 ];
 
