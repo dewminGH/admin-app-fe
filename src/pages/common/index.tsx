@@ -18,9 +18,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import { IFrameProps } from "./types";
-import { removeUserTokens } from "../../services/cache";
+import { getUserTokens, removeUserTokens } from "../../services";
 import { useNavigate } from "react-router-dom";
+import { Avatar } from "@mui/material";
+import jwtDecode from "jwt-decode";
+import { IIDTokenDecode } from "../login/types";
+import { useEffect } from "react";
 
 const drawerWidth = 260;
 
@@ -92,9 +97,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== "open" })
 }));
 
 /*JSX of the element*/
-const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems }) => {
+const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balance }) => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+  const [name, setName] = React.useState<string>("un named");
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -109,6 +115,15 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems }) => 
     removeUserTokens();
     navigate("/");
   };
+
+  useEffect(() => {
+    const token = getUserTokens().IdToken;
+    if (token) {
+      const decode: IIDTokenDecode = jwtDecode(token);
+      setName(decode.name);
+    }
+  }, []);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -128,6 +143,30 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems }) => 
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             {title}
+          </Typography>
+          <Avatar
+            sx={{
+              position: "absolute",
+              top: 11,
+              right: 25,
+            }}
+          >
+            <AdminPanelSettingsOutlinedIcon />
+          </Avatar>
+          <Typography
+            noWrap
+            component="div"
+            sx={{
+              position: "absolute",
+              top: 10,
+              right: 80,
+              fontSize: 25,
+            }}
+          >
+            {name.length > 15 ? name.slice(0, 12).concat("...") : name}
+            {"     "}
+            {balance}
+            {"  "}LKR
           </Typography>
         </Toolbar>
       </AppBar>

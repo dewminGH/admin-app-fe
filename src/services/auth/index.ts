@@ -1,6 +1,5 @@
-import { setUserTokens } from "./../cache/index";
 import { Axios } from "../../util";
-import { getPendingConfirmUser, setPendingConfirmUser } from "../cache";
+import { getPendingConfirmUser, setPendingConfirmUser, setUserTokens } from "../cache";
 import {
   IAuthCredentials,
   IConfirmResponse,
