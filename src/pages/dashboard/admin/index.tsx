@@ -5,7 +5,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
 import TableFrame from "../../../components/table";
 import React, { useEffect, useState } from "react";
-import { INavButton } from "../common/type";
+import { INavButton, sx } from "../common/type";
 import { getShop } from "../../../services";
 import { tableClNames } from "./string";
 import { setObjectToArray } from "../../../util";
@@ -13,11 +13,11 @@ import { setObjectToArray } from "../../../util";
 const NavItems: INavButton[] = [
   {
     name: "Home",
-    element: <HomeOutlinedIcon />,
+    element: <HomeOutlinedIcon sx={sx} />,
   },
   {
     name: "Users",
-    element: <PersonSearchOutlinedIcon />,
+    element: <PersonSearchOutlinedIcon sx={sx} />,
   },
 ];
 

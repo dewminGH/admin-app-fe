@@ -17,7 +17,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import { IFrameProps } from "./types";
 import { getUserTokens, removeUserTokens } from "../../services";
@@ -26,6 +25,7 @@ import { Avatar } from "@mui/material";
 import jwtDecode from "jwt-decode";
 import { IIDTokenDecode } from "../login/types";
 import { useEffect } from "react";
+import { sx } from "../dashboard/common/type";
 
 const drawerWidth = 260;
 
@@ -166,7 +166,8 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
             {name.length > 15 ? name.slice(0, 12).concat("...") : name}
             {"     "}
             {balance}
-            {"  "}LKR
+            {"  "}
+            {balance ? "LKR" : ""}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -239,7 +240,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <InboxIcon sx={sx} />
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
