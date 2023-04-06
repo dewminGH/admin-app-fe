@@ -14,6 +14,12 @@ export const setUserTokens = (tokens: ILoginCache) => {
   localStorage.setItem("RefreshToken", tokens.RefreshToken);
 };
 
+export const removeUserTokens = () => {
+  localStorage.removeItem("AccessToken");
+  localStorage.removeItem("IdToken");
+  localStorage.removeItem("RefreshToken");
+};
+
 export const getUserTokens = () => {
   const userTokens: IUserTokens = {
     AccessToken: localStorage.getItem("AccessToken"),
