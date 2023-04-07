@@ -17,6 +17,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
+import GppMaybeOutlinedIcon from "@mui/icons-material/GppMaybeOutlined";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import { IFrameProps } from "./types";
 import { getUserTokens, removeUserTokens } from "../../services";
@@ -24,8 +25,10 @@ import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import jwtDecode from "jwt-decode";
 import { IIDTokenDecode } from "../login/types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { sx } from "../dashboard/common/type";
+import DeleteAccount from "../deleteAccount";
+import { Roles } from "./enum";
 
 const drawerWidth = 260;
 
@@ -99,8 +102,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== "open" })
 /*JSX of the element*/
 const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balance }) => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
-  const [name, setName] = React.useState<string>("un named");
+  const [open, setOpen] = useState(true);
+  const [activeRemove, setActiveRemove] = useState<boolean>(false);
+  const [name, setName] = useState<string>("un named");
+  const [role, setRole] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -121,142 +126,156 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
     if (token) {
       const decode: IIDTokenDecode = jwtDecode(token);
       setName(decode.name);
+      setRole(decode.profile);
     }
   }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ bgcolor: "#D94CFD" }}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {title}
-          </Typography>
-          <Avatar
-            sx={{
-              position: "absolute",
-              top: 11,
-              right: 25,
-            }}
-          >
-            <AdminPanelSettingsOutlinedIcon />
-          </Avatar>
-          <Typography
-            noWrap
-            component="div"
-            sx={{
-              position: "absolute",
-              top: 10,
-              right: 80,
-              fontSize: 25,
-            }}
-          >
-            {name.length > 15 ? name.slice(0, 12).concat("...") : name}
-            {"     "}
-            {balance}
-            {"  "}
-            {balance ? "LKR" : ""}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        open={open}
-        /* sx={{
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open} sx={{ bgcolor: "#D94CFD" }}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              {title}
+            </Typography>
+            <Avatar
+              sx={{
+                position: "absolute",
+                top: 11,
+                right: 25,
+              }}
+            >
+              <AdminPanelSettingsOutlinedIcon />
+            </Avatar>
+            <Typography
+              noWrap
+              component="div"
+              sx={{
+                position: "absolute",
+                top: 10,
+                right: 80,
+                fontSize: 25,
+              }}
+            >
+              {name.length > 15 ? name.slice(0, 12).concat("...") : name}
+              {"     "}
+              {balance}
+              {"  "}
+              {balance ? "LKR" : ""}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          open={open}
+          /* sx={{
           "& .MuiDrawer-paper": {
             borderRight: "2px solid #D94CFD", // Replace with your desired color
           },
         }}*/
-      >
-        <DrawerHeader>
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : "auto",
-              justifyContent: "center",
-              width: "100%",
-              color: "#D94CFD",
-            }}
-          >
-            {"Bumble bee"}
-          </ListItemIcon>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider sx={{ /*bgcolor: "#D94CFD",*/ height: "2px" }} />
-        <List>
-          {navItems.map((navItem, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  color: "#F150FF",
-                  fontWeight: 600,
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+        >
+          <DrawerHeader>
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
+                width: "100%",
+                color: "#D94CFD",
+              }}
+            >
+              {"Bumble bee"}
+            </ListItemIcon>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider sx={{ /*bgcolor: "#D94CFD",*/ height: "2px" }} />
+          <List>
+            {navItems.map((navItem, index) => (
+              <ListItem key={index} disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  onClick={navItem?.onclick ? navItem.onclick : () => {}}
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    color: "#F150FF",
+                    fontWeight: 600,
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {navItem.element}
-                </ListItemIcon>
-                <ListItemText primary={navItem.name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider sx={{ /*bgcolor: "#D94CFD",*/ height: "2px" }} />
-        <List>
-          {["Log out"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  color: "#F150FF",
-                  fontWeight: 600,
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-                onClick={onClickLogOut}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  <InboxIcon sx={sx} />
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Typography paragraph>{content}</Typography>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {navItem.element}
+                  </ListItemIcon>
+                  <ListItemText primary={navItem.name} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider sx={{ /*bgcolor: "#D94CFD",*/ height: "2px" }} />
+          <List>
+            {["Danger Zone", "Log out"].map((text, index) => {
+              if (index === 0 && role === Roles.admin) return null;
+              return (
+                <ListItem key={text} disablePadding sx={{ display: "block" }}>
+                  <ListItemButton
+                    sx={{
+                      color: "#F150FF",
+                      fontWeight: 600,
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                    onClick={
+                      index === 1
+                        ? onClickLogOut
+                        : () => {
+                            setActiveRemove(true);
+                          }
+                    }
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {index === 1 ? <InboxIcon sx={sx} /> : <GppMaybeOutlinedIcon sx={sx} />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+          </List>
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+          <Typography paragraph>{content}</Typography>
+        </Box>
       </Box>
-    </Box>
+      {activeRemove && <DeleteAccount activeRemove={activeRemove} />}
+    </>
   );
 };
 

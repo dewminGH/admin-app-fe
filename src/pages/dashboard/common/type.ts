@@ -1,6 +1,7 @@
 export interface INavButton {
   name: string;
   element: React.ReactNode;
+  onClick?: () => void;
 }
 
 export interface IIDTokenDecode {

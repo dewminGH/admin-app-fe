@@ -1,5 +1,5 @@
 /*auth exports*/
-export { userRegister, getUserData, initAuth, userConfirmRegister } from "./auth";
+export { userRegister, getUserData, initAuth, userConfirmRegister, deleteUser } from "./auth";
 
 /*cache exports*/
 export { getPendingConfirmUser, getUserTokens, removeUserTokens, setPendingConfirmUser, setUserTokens } from "./cache";
