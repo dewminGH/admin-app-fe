@@ -8,5 +8,5 @@ export interface ITextFieldProps {
 }
 
 export interface ITextFieldStyleProps {
-  type: TextFieldTypes;
+  styleType: TextFieldTypes;
 }

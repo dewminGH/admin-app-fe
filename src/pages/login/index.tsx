@@ -105,7 +105,7 @@ const LoginPage: React.FC = () => {
           Password
         </Styled.LoginContentLabel>
         <CustomTextField
-          type={TextFieldTypes.LoginTextField}
+          type={TextFieldTypes.PasswordTextField}
           placeHolder="Enter password"
           onChange={({ target }) => {
             setPassword(target.value);
@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
               Confirm Password
             </Styled.LoginContentLabel>
             <CustomTextField
-              type={TextFieldTypes.LoginTextField}
+              type={TextFieldTypes.PasswordTextField}
               placeHolder="confirm password"
               onChange={({ target }) => {
                 setConfirmPassword(target.value);

@@ -4,9 +4,9 @@ import { ITextFieldStyleProps } from "./types";
 import { TextFieldTypes } from "./enum";
 
 export const CustomTextField = styled(TextField)<ITextFieldStyleProps>`
-  ${({ type }) => {
+  ${({ styleType }) => {
     let styles;
-    switch (type) {
+    switch (styleType) {
       case TextFieldTypes.LoginTextField:
         styles = {
           width: "540px !important",
@@ -18,6 +18,13 @@ export const CustomTextField = styled(TextField)<ITextFieldStyleProps>`
         styles = {
           width: "395px",
           height: "65px",
+          paddingBottom: "15px !important",
+        };
+        break;
+      case TextFieldTypes.PasswordTextField:
+        styles = {
+          width: "540px !important",
+          height: "65px !important",
           paddingBottom: "15px !important",
         };
         break;
