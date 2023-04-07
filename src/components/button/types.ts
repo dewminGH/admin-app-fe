@@ -6,6 +6,7 @@ export interface IButtonProps {
   title?: string;
   type?: "submit" | "reset" | "button" | undefined;
   onClick?: (event: FormEvent<HTMLButtonElement>) => void;
+  sx?: object;
 }
 
 export interface IButtonStyleProps {

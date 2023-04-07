@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-const StyledModal: React.FC<IModalProps> = ({ title, content, buttons, open, handleClose }) => {
+const StyledModal: React.FC<IModalProps> = ({ title, content, buttons, open, handleClose, sx }) => {
   return (
     <Modal
       open={open}
@@ -27,7 +27,7 @@ const StyledModal: React.FC<IModalProps> = ({ title, content, buttons, open, han
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={sx ? sx : style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {title}
         </Typography>

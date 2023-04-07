@@ -4,7 +4,7 @@ import DashboardFrame from "../../common";
 import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import React, { useEffect, useState } from "react";
-import { INavButton } from "../common/type";
+import { INavButton, sx } from "../common/type";
 import { getUserInventory } from "../../../services";
 import TableFrame from "../../../components/table";
 import { tableClNames } from "./string";
@@ -12,11 +12,11 @@ import { tableClNames } from "./string";
 const NavItems: INavButton[] = [
   {
     name: "Inventory",
-    element: <InventoryOutlinedIcon />,
+    element: <InventoryOutlinedIcon sx={sx} />,
   },
   {
     name: "Payment",
-    element: <AttachMoneyOutlinedIcon />,
+    element: <AttachMoneyOutlinedIcon sx={sx} />,
   },
 ];
 
@@ -36,7 +36,6 @@ const CustomDashBoard: React.FC = () => {
         items.items?.map((item: string, index: number) => {
           data[index] = item.split(",");
         });
-        console.log(data);
         setTableData(data);
         setLoading(false);
       }

@@ -17,7 +17,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import { IFrameProps } from "./types";
 import { getUserTokens, removeUserTokens } from "../../services";
@@ -26,6 +25,7 @@ import { Avatar } from "@mui/material";
 import jwtDecode from "jwt-decode";
 import { IIDTokenDecode } from "../login/types";
 import { useEffect } from "react";
+import { sx } from "../dashboard/common/type";
 
 const drawerWidth = 260;
 
@@ -127,7 +127,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{ bgcolor: "#D94CFD" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -166,7 +166,8 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
             {name.length > 15 ? name.slice(0, 12).concat("...") : name}
             {"     "}
             {balance}
-            {"  "}LKR
+            {"  "}
+            {balance ? "LKR" : ""}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -186,7 +187,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
               mr: open ? 3 : "auto",
               justifyContent: "center",
               width: "100%",
-              /*color: "#D94CFD",*/
+              color: "#D94CFD",
             }}
           >
             {"Bumble bee"}
@@ -201,6 +202,8 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
             <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
+                  color: "#F150FF",
+                  fontWeight: 600,
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
@@ -226,6 +229,8 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
+                  color: "#F150FF",
+                  fontWeight: 600,
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
@@ -239,7 +244,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <InboxIcon sx={sx} />
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
