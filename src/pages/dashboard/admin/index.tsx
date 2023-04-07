@@ -7,13 +7,15 @@ import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
 import TableFrame from "../../../components/table";
 import CustomButton from "../../../components/button";
 import StyledModal from "../../../components/modal";
+import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import { INavButton, sx } from "../common/type";
-import { getShop, removeShopItem, saveShopItem } from "../../../services";
+import { IIDTokenDecode, INavButton, sx } from "../common/type";
+import { getShop, getUserTokens, removeShopItem, saveShopItem } from "../../../services";
 import { tableClNames, Style, miniStyle } from "./values";
 import { setObjectToArray } from "../../../util";
 import { ButtonTypes } from "../../../components/button/enum";
 import { ContentRender } from "./content";
+import { useNavigate } from "react-router-dom";
 
 const NavItems: INavButton[] = [
   {
@@ -38,6 +40,18 @@ const AminDashBoard: React.FC = () => {
   const [itemPrice, setItemPrice] = useState<string>("");
   const [itemCountry, setItemCountry] = useState<string>("");
   const [itemQuantity, setItemQuantity] = useState<string>("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = getUserTokens().IdToken;
+    if (!token) {
+      navigate("/");
+    }
+    if (token) {
+      const decode: IIDTokenDecode = jwtDecode(token);
+      if (decode.profile !== "admin") navigate("/");
+    }
+  });
 
   const fetchShop = () => {
     setLoading(true);

@@ -10,10 +10,3 @@ export interface IShopItem {
   id: string;
   name: string;
 }
-
-export interface IIDTokenDecode {
-  profile: string;
-  name: string;
-  exp: string;
-  email: string;
-}
