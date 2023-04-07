@@ -127,7 +127,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{ bgcolor: "#D94CFD" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -187,7 +187,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
               mr: open ? 3 : "auto",
               justifyContent: "center",
               width: "100%",
-              /*color: "#D94CFD",*/
+              color: "#D94CFD",
             }}
           >
             {"Bumble bee"}
@@ -202,6 +202,8 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
             <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
+                  color: "#F150FF",
+                  fontWeight: 600,
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
@@ -227,6 +229,8 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
+                  color: "#F150FF",
+                  fontWeight: 600,
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,

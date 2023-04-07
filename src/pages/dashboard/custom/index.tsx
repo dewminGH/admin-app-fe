@@ -36,7 +36,6 @@ const CustomDashBoard: React.FC = () => {
         items.items?.map((item: string, index: number) => {
           data[index] = item.split(",");
         });
-        console.log(data);
         setTableData(data);
         setLoading(false);
       }
