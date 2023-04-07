@@ -11,23 +11,23 @@ import TableFrame from "../../../components/table";
 import { tableClNames } from "./string";
 import { useNavigate } from "react-router-dom";
 
-const NavItems: INavButton[] = [
-  {
-    name: "Inventory",
-    element: <InventoryOutlinedIcon sx={sx} />,
-  },
-  {
-    name: "Payment",
-    element: <AttachMoneyOutlinedIcon sx={sx} />,
-  },
-];
-
 const CustomDashBoard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [content, setContent] = useState<React.ReactNode>(<div>no data</div>);
   const [tableData, setTableData] = useState<string[][]>([]);
   const [balance, setBalance] = useState(0);
   const navigate = useNavigate();
+
+  const NavItems: INavButton[] = [
+    {
+      name: "Inventory",
+      element: <InventoryOutlinedIcon sx={sx} />,
+    },
+    {
+      name: "Payment",
+      element: <AttachMoneyOutlinedIcon sx={sx} />,
+    },
+  ];
 
   useEffect(() => {
     const token = getUserTokens().IdToken;

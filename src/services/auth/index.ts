@@ -1,5 +1,5 @@
 import { Axios } from "../../util";
-import { getPendingConfirmUser, setPendingConfirmUser, setUserTokens } from "../cache";
+import { getPendingConfirmUser, getUserTokens, setPendingConfirmUser, setUserTokens } from "../cache";
 import {
   IAuthCredentials,
   IConfirmResponse,
@@ -49,4 +49,10 @@ export const getUserData = async (accessToken: string | null) => {
     };
   }
   return { message };
+};
+
+export const deleteUser = async () => {
+  await Axios.post("/deleteUser", {
+    accessToken: getUserTokens().AccessToken,
+  });
 };
