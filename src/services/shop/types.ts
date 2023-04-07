@@ -6,3 +6,11 @@ export interface IShopData {
     };
   };
 }
+
+export interface ISaveShopItem {
+  itemID: string;
+  itemName: string;
+  itemCountry: string;
+  itemPrice: string;
+  itemQuantity: string;
+}

@@ -1,1 +1,11 @@
-export { userRegister } from "./auth";
+/*auth exports*/
+export { userRegister, getUserData, initAuth, userConfirmRegister } from "./auth";
+
+/*cache exports*/
+export { getPendingConfirmUser, getUserTokens, removeUserTokens, setPendingConfirmUser, setUserTokens } from "./cache";
+
+/*shop exports*/
+export { getShop, removeShopItem, saveShopItem } from "./shop";
+
+/*inventory exports*/
+export { getUserInventory } from "./inventory";

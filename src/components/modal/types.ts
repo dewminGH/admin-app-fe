@@ -6,4 +6,5 @@ export interface IModalProps {
   open: boolean;
   handleClose: React.Dispatch<React.SetStateAction<boolean>>;
   buttons?: React.ReactNode;
+  sx?: object;
 }

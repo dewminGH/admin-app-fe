@@ -1,10 +1,13 @@
+import { TextFieldTypes } from "./enum";
 import * as Styled from "./styles";
 import { ITextFieldProps } from "./types";
 
 const CustomTextField: React.FC<ITextFieldProps> = ({ type, placeHolder, onChange }) => {
+  const password = type === TextFieldTypes.PasswordTextField ? "password" : "";
   return (
     <Styled.CustomTextField
-      type={type}
+      type={password}
+      styleType={type}
       placeholder={placeHolder}
       onChange={onChange}
       sx={{
