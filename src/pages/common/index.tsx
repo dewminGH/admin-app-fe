@@ -28,6 +28,7 @@ import { IIDTokenDecode } from "../login/types";
 import { useEffect, useState } from "react";
 import { sx } from "../dashboard/common/type";
 import DeleteAccount from "../deleteAccount";
+import { Roles } from "./enum";
 
 const drawerWidth = 260;
 
@@ -104,6 +105,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
   const [open, setOpen] = useState(true);
   const [activeRemove, setActiveRemove] = useState<boolean>(false);
   const [name, setName] = useState<string>("un named");
+  const [role, setRole] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -124,6 +126,7 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
     if (token) {
       const decode: IIDTokenDecode = jwtDecode(token);
       setName(decode.name);
+      setRole(decode.profile);
     }
   }, []);
 
@@ -230,37 +233,40 @@ const DashboardFrame: React.FC<IFrameProps> = ({ content, title, navItems, balan
           </List>
           <Divider sx={{ /*bgcolor: "#D94CFD",*/ height: "2px" }} />
           <List>
-            {["Log out", "Danger Zone"].map((text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: "block" }}>
-                <ListItemButton
-                  sx={{
-                    color: "#F150FF",
-                    fontWeight: 600,
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
-                  }}
-                  onClick={
-                    index === 0
-                      ? onClickLogOut
-                      : () => {
-                          setActiveRemove(true);
-                        }
-                  }
-                >
-                  <ListItemIcon
+            {["Danger Zone", "Log out"].map((text, index) => {
+              if (index === 0 && role === Roles.admin) return null;
+              return (
+                <ListItem key={text} disablePadding sx={{ display: "block" }}>
+                  <ListItemButton
                     sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
+                      color: "#F150FF",
+                      fontWeight: 600,
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
                     }}
+                    onClick={
+                      index === 1
+                        ? onClickLogOut
+                        : () => {
+                            setActiveRemove(true);
+                          }
+                    }
                   >
-                    {index === 0 ? <InboxIcon sx={sx} /> : <GppMaybeOutlinedIcon sx={sx} />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {index === 1 ? <InboxIcon sx={sx} /> : <GppMaybeOutlinedIcon sx={sx} />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
           </List>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
